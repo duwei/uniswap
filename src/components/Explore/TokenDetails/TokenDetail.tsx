@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro'
+import { Trace } from 'components/AmplitudeAnalytics/Trace'
 import CurrencyLogo from 'components/CurrencyLogo'
 import { useCurrency, useToken } from 'hooks/Tokens'
 import { TimePeriod } from 'hooks/useTopTokens'
@@ -185,80 +186,92 @@ export default function LoadedTokenDetail({ address }: { address: string }) {
   const tokenMarketCap = '23.02B'
   const tokenVolume = '1.6B'
   return (
-    <TopArea>
-      <BreadcrumbNavLink to="/explore">
-        <ArrowLeft size={14} /> Explore
-      </BreadcrumbNavLink>
-      <ChartHeader>
-        <TokenInfoContainer>
-          <TokenNameCell>
-            <CurrencyLogo currency={currency} size={'32px'} />
-            {tokenName} <TokenSymbol>{tokenSymbol}</TokenSymbol>
-          </TokenNameCell>
-          <TokenActions>
-            <ShareButton tokenName={tokenName} tokenSymbol={tokenSymbol} />
-            <ClickFavorited onClick={toggleFavorite}>
-              <Heart
-                size={15}
-                color={isFavorited ? theme.deprecated_primary1 : theme.deprecated_text2}
-                fill={isFavorited ? theme.deprecated_primary1 : 'transparent'}
-              />
-            </ClickFavorited>
-          </TokenActions>
-        </TokenInfoContainer>
-        <TokenPrice>${tokenPrice}</TokenPrice>
-        <DeltaContainer>
-          {' '}
-          {deltaSign}
-          {tokenDelta}%
-          <ArrowCell>
-            {isPositive ? (
-              <ArrowUpRight size={16} color={theme.deprecated_green1} />
-            ) : (
-              <ArrowDownRight size={16} color={theme.deprecated_red1} />
-            )}
-          </ArrowCell>
-        </DeltaContainer>
-        <ChartContainer>{null}</ChartContainer>
-        <TimeOptionsContainer>
-          {TIME_PERIODS.map((timePeriod) => (
-            <TimeButton
-              key={timePeriod}
-              active={activeTimePeriod === timePeriod}
-              onClick={() => setTimePeriod(timePeriod)}
-            >
-              {TIME_DISPLAYS[timePeriod]}
-            </TimeButton>
-          ))}
-        </TimeOptionsContainer>
-      </ChartHeader>
-      <AboutSection>
-        <AboutHeader>
-          <Trans>About</Trans>
-        </AboutHeader>{' '}
-        {aboutToken}
-        <ResourcesContainer>
-          <Resource name={'Etherscan'} link={'https://etherscan.io/'} />
-          <Resource name={'Protocol Info'} link={`https://info.uniswap.org/#/tokens/${address}`} />
-        </ResourcesContainer>
-      </AboutSection>
-      <StatsSection>
-        <Stat>
-          Market Cap<StatPrice>${tokenMarketCap}</StatPrice>
-        </Stat>
-        <Stat>
-          {TIME_DISPLAYS[activeTimePeriod]} Volume
-          <StatPrice>${tokenVolume}</StatPrice>
-        </Stat>
-      </StatsSection>
-      <ContractAddressSection>
-        <Contract>
-          Contract Address
-          <ContractAddress onClick={() => navigator.clipboard.writeText(address)}>
-            {address} <Copy size={13} color={theme.deprecated_text2} />
-          </ContractAddress>
-        </Contract>
-      </ContractAddressSection>
-    </TopArea>
+    <Trace
+      name={EventName.TOKEN_DETAIL_PAGE_VIEWED}
+      properties={{
+        chain_id: filterNetwork,
+        token_address: address,
+        token_symbol: tokenSymbol,
+        time_frame: filterTime,
+        search_token_address_input: filterString,
+      }}
+      shouldLogImpression
+    >
+      <TopArea>
+        <BreadcrumbNavLink to="/explore">
+          <ArrowLeft size={14} /> Explore
+        </BreadcrumbNavLink>
+        <ChartHeader>
+          <TokenInfoContainer>
+            <TokenNameCell>
+              <CurrencyLogo currency={currency} size={'32px'} />
+              {tokenName} <TokenSymbol>{tokenSymbol}</TokenSymbol>
+            </TokenNameCell>
+            <TokenActions>
+              <ShareButton tokenName={tokenName} tokenSymbol={tokenSymbol} />
+              <ClickFavorited onClick={toggleFavorite}>
+                <Heart
+                  size={15}
+                  color={isFavorited ? theme.deprecated_primary1 : theme.deprecated_text2}
+                  fill={isFavorited ? theme.deprecated_primary1 : 'transparent'}
+                />
+              </ClickFavorited>
+            </TokenActions>
+          </TokenInfoContainer>
+          <TokenPrice>${tokenPrice}</TokenPrice>
+          <DeltaContainer>
+            {' '}
+            {deltaSign}
+            {tokenDelta}%
+            <ArrowCell>
+              {isPositive ? (
+                <ArrowUpRight size={16} color={theme.deprecated_green1} />
+              ) : (
+                <ArrowDownRight size={16} color={theme.deprecated_red1} />
+              )}
+            </ArrowCell>
+          </DeltaContainer>
+          <ChartContainer>{null}</ChartContainer>
+          <TimeOptionsContainer>
+            {TIME_PERIODS.map((timePeriod) => (
+              <TimeButton
+                key={timePeriod}
+                active={activeTimePeriod === timePeriod}
+                onClick={() => setTimePeriod(timePeriod)}
+              >
+                {TIME_DISPLAYS[timePeriod]}
+              </TimeButton>
+            ))}
+          </TimeOptionsContainer>
+        </ChartHeader>
+        <AboutSection>
+          <AboutHeader>
+            <Trans>About</Trans>
+          </AboutHeader>{' '}
+          {aboutToken}
+          <ResourcesContainer>
+            <Resource name={'Etherscan'} link={'https://etherscan.io/'} />
+            <Resource name={'Protocol Info'} link={`https://info.uniswap.org/#/tokens/${address}`} />
+          </ResourcesContainer>
+        </AboutSection>
+        <StatsSection>
+          <Stat>
+            Market Cap<StatPrice>${tokenMarketCap}</StatPrice>
+          </Stat>
+          <Stat>
+            {TIME_DISPLAYS[activeTimePeriod]} Volume
+            <StatPrice>${tokenVolume}</StatPrice>
+          </Stat>
+        </StatsSection>
+        <ContractAddressSection>
+          <Contract>
+            Contract Address
+            <ContractAddress onClick={() => navigator.clipboard.writeText(address)}>
+              {address} <Copy size={13} color={theme.deprecated_text2} />
+            </ContractAddress>
+          </Contract>
+        </ContractAddressSection>
+      </TopArea>
+    </Trace>
   )
 }
