@@ -232,7 +232,6 @@ export default function LoadedTokenDetail({ address }: { address: string }) {
           </TokenInfoContainer>
           <TokenPrice>${tokenPrice}</TokenPrice>
           <DeltaContainer>
-            {' '}
             {deltaSign}
             {tokenDelta}%
             <ArrowCell>
