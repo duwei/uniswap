@@ -186,7 +186,6 @@ export default function LoadedTokenDetail({ address }: { address: string }) {
   const tokenName = token.name
   const tokenSymbol = token.symbol
 
-  // dummy data for now until Jordan writes token detail hooks
   // TODO: format price, add sparkline
   const tokenPrice = '3,243.22'
   const tokenDelta = 1.22
@@ -196,6 +195,8 @@ export default function LoadedTokenDetail({ address }: { address: string }) {
     'Ethereum is a decentralized computing platform that uses ETH (Ether) to pay transaction fees (gas). Developers can use Ethereum to run decentralized applications (dApps) and issue new crypto assets, known as Ethereum tokens.'
   const tokenMarketCap = '23.02B'
   const tokenVolume = '1.6B'
+
+  // TODO: add token_list_index and token_list_length props
   return (
     <Trace
       name={EventName.TOKEN_DETAIL_PAGE_VIEWED}
