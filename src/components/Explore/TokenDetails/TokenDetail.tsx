@@ -258,7 +258,7 @@ export default function LoadedTokenDetail({ address }: { address: string }) {
         <AboutSection>
           <AboutHeader>
             <Trans>About</Trans>
-          </AboutHeader>{' '}
+          </AboutHeader>
           {aboutToken}
           <ResourcesContainer>
             <Resource name={'Etherscan'} link={'https://etherscan.io/'} />
