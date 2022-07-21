@@ -1,15 +1,10 @@
 import { Trans } from '@lingui/macro'
 import { EventName } from 'components/AmplitudeAnalytics/constants'
-import { EventName } from 'components/AmplitudeAnalytics/constants'
 import { Trace } from 'components/AmplitudeAnalytics/Trace'
 import CurrencyLogo from 'components/CurrencyLogo'
 import { useCurrency, useToken } from 'hooks/Tokens'
 import { TimePeriod } from 'hooks/useTopTokens'
-<<<<<<< HEAD:src/components/Explore/TokenDetails/TokenDetail.tsx
 import { useAtomValue } from 'jotai/utils'
-=======
-import { useAtom, useAtomValue } from 'jotai'
->>>>>>> 4d947d56 (explore token page amplitude):src/components/Explore/TokenDetail.tsx
 import { darken } from 'polished'
 import { useState } from 'react'
 import { ArrowDownRight, ArrowLeft, ArrowUpRight, Copy, Heart } from 'react-feather'
