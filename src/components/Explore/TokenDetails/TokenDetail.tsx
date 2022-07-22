@@ -11,12 +11,10 @@ import { ArrowDownRight, ArrowLeft, ArrowUpRight, Copy, Heart } from 'react-feat
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components/macro'
 
-import { favoritesAtom, useToggleFavorite } from '../state'
+import { favoritesAtom, filterNetworkAtom, filterStringAtom, filterTimeAtom, useToggleFavorite } from '../state'
 import { ClickFavorited } from '../TokenTable/TokenRow'
 import Resource from './Resource'
 import ShareButton from './ShareButton'
-import { favoritesAtom, filterNetworkAtom, filterStringAtom, filterTimeAtom, useToggleFavorite } from './state'
-import { ClickFavorited } from './TokenRow'
 
 const TIME_DISPLAYS: Record<TimePeriod, string> = {
   [TimePeriod.hour]: '1H',
@@ -172,7 +170,7 @@ export default function LoadedTokenDetail({ address }: { address: string }) {
   const toggleFavorite = useToggleFavorite(address)
   const filterString = useAtomValue(filterStringAtom)
   const filterNetwork = useAtomValue(filterNetworkAtom)
-  const filterTime = useAtomValue(filterTimeAtom)
+  const filterTime = useAtomValue(filterTimeAtom) // filter time period for top tokens table
 
   // catch token error and loading state
   if (!token || !token.name || !token.symbol) {
