@@ -10,7 +10,7 @@ import FooterBalanceSummary from 'components/Explore/TokenDetails/FooterBalanceS
 import LoadingTokenDetail from 'components/Explore/TokenDetails/LoadingTokenDetail'
 import NetworkBalance from 'components/Explore/TokenDetails/NetworkBalance'
 import TokenDetail from 'components/Explore/TokenDetails/TokenDetail'
-import { getChainInfo } from 'constants/chainInfo'
+import { getChainInfo, getChainInfoOrDefault } from 'constants/chainInfo'
 import { L1_CHAIN_IDS, L2_CHAIN_IDS, SupportedChainId, TESTNET_CHAIN_IDS } from 'constants/chains'
 import { useToken } from 'hooks/Tokens'
 import { useNetworkTokenBalances } from 'hooks/useNetworkTokenBalances'
@@ -80,6 +80,7 @@ export default function TokenDetails() {
   /* network balance handling */
   const { data } = useNetworkTokenBalances({ address: tokenAddress })
   const { connector, chainId: connectedChainId } = useWeb3React()
+  const { label: connectedLabel } = getChainInfoOrDefault(connectedChainId)
   const totalBalance = 4.3 // dummy data
 
   const chainsToList = useMemo(() => {
@@ -129,6 +130,7 @@ export default function TokenDetails() {
                 address={tokenAddress}
                 totalBalance={totalBalance}
                 networkBalances={balancesByNetwork}
+                connectedNetwork={connectedLabel}
               />
             )}
           </Footer>
